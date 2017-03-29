@@ -6,3 +6,11 @@ export const doIt = (url, data) => {
   })
 }
 
+get('/comunicados/index').then(usuario => {
+
+});
+
+Object index(Request req){
+  return req.usuario;
+}
+

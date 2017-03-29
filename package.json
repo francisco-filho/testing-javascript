@@ -23,6 +23,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "sinon": "^2.1.0",
+    "testdouble": "^2.1.1",
     "whatwg-fetch": "^2.0.3"
   }
 }

@@ -1,7 +1,6 @@
 import chai, { expect } from'chai'
 const chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
-
 import {fakePostRequest} from '../src/mocks'
 
 fakePostRequest({
