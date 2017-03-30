@@ -39,7 +39,7 @@ export default class Tagger extends Component {
   }
 
   isEmpty(tag){
-    return /^\s*$/.test(tag)
+    return typeof tag === 'undefined' || tag === null || /^\s*$/.test(tag)
   }
 
   tagExists(tag){

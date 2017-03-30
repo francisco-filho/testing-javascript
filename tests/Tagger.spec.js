@@ -73,6 +73,8 @@ describe('<Tagger/>', () => {
   })
 
   it('Should not add Empty values', () => {
+    wrapper.instance().addTag(null)
+    wrapper.instance().addTag(undefined)
     wrapper.instance().addTag("")
     wrapper.instance().addTag(" ")
     wrapper.instance().addTag("           ")
