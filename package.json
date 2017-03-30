@@ -9,12 +9,16 @@
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "css-loader": "^0.27.3",
     "enzyme": "^2.7.1",
+    "express": "^4.15.2",
     "jsdom": "^9.12.0",
     "mocha": "^3.2.0",
     "nightwatch": "^0.9.14",
@@ -23,7 +27,10 @@
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "sinon": "^2.1.0",
+    "style-loader": "^0.16.1",
     "testdouble": "^2.1.1",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2",
     "whatwg-fetch": "^2.0.3"
   }
 }
