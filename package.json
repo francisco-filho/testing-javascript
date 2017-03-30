@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": {},
   "scripts": {
-    "test": "mocha -w --compiler babel-register --require tests/browser.js tests/*.spec.js"
+    "test": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js tests/*.spec.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -19,6 +19,7 @@
     "css-loader": "^0.27.3",
     "enzyme": "^2.7.1",
     "express": "^4.15.2",
+    "ignore-styles": "^5.0.1",
     "jsdom": "^9.12.0",
     "mocha": "^3.2.0",
     "nightwatch": "^0.9.14",

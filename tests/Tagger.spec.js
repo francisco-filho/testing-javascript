@@ -117,4 +117,13 @@ describe('<Tagger/>', () => {
 
     expect(wrapper.state('tags')).to.be.eql(['new'])
   })
+
+  it('Should call OnChange when updating the state', () => {
+    let state = null
+    const wrapper = mount(<Tagger onChange={ (t) => state = t }/>)
+
+    wrapper.instance().addTag('angular')
+
+    expect(state).to.be.eql(['angular'])
+  })
 })

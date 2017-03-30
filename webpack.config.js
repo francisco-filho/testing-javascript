@@ -15,6 +15,11 @@ const config = {
         test: /\.js$/,
         include: [ path.resolve(__dirname, 'src')],
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        include: [ path.resolve(__dirname, 'src')],
+        use: ['style-loader','css-loader']
       }
     ]
   },

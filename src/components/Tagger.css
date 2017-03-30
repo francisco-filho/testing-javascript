@@ -1,0 +1,32 @@
+.tagger {
+    border: 1px solid #ccc;
+    width: 500px;
+}
+
+.tags input {
+    flex: 1;
+    border: none;
+    outline: none;
+    margin-left: 2px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+.tags .tag {
+    display: inline-block;
+    position: relative;
+    margin: 2px;
+    padding: 5px 10px 5px 7px;
+    background-color: #cfcfcf;
+    border-radius: 3px;
+}
+
+.close {
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    cursor: pointer;
+}
+

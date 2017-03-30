@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
+import './Tagger.css'
 
 export default class Tagger extends Component {
   static get propTypes(){
     return {
-      tags: React.PropTypes.array
+      tags: React.PropTypes.array,
+      onChange: React.PropTypes.func
     }
   }
 
@@ -24,12 +26,16 @@ export default class Tagger extends Component {
 
   addTag(tag){
     if (this.isEmpty(tag) || this.tagExists(tag)) return
-    this.setState({tags: [...this.state.tags, tag]})
+
+    const newState = [...this.state.tags, tag]
+    this.props.onChange && this.props.onChange(newState)
+    this.setState({tags: newState})
   }
 
   removeTag(tag){
     const tags = this.state.tags.filter( t => t !== tag)
     this.setState({tags})
+    this.props.onChange && this.props.onChange(tags)
   }
 
   isEmpty(tag){
@@ -44,6 +50,7 @@ export default class Tagger extends Component {
     const tags = [...this.state.tags]
     tags.pop()
     this.setState({tags})
+    this.props.onChange && this.props.onChange(tags)
   }
 
   render(){
@@ -59,16 +66,18 @@ export default class Tagger extends Component {
               </span>
             ))
           }
+          <input type="text" onKeyDown={ e => {
+            if (e.keyCode === 13) {
+              this.addTag(e.target.value)
+              e.target.value = ''
+
+            } else if (e.keyCode === 8 && this.isEmpty(e.target.value)){
+              this.removeLastTag()
+              e.target.value = ''
+            }
+          }}/>
         </div>
-        <input type="text" onKeyDown={ e => {
-          if (e.keyCode === 13) {
-            this.addTag(e.target.value)
-            e.target.value = ''
-          } else if (e.keyCode === 8 && this.isEmpty(e.target.value)){
-            this.removeLastTag()
-            e.target.value = ''
-          }
-        }}/>
+
       </div>
     )
   }
