@@ -23,7 +23,7 @@ export default class Tagger extends Component {
   }
 
   addTag(tag){
-    if (this.isTagEmpty(tag) || this.tagExists(tag)) return
+    if (this.isEmpty(tag) || this.tagExists(tag)) return
     this.setState({tags: [...this.state.tags, tag]})
   }
 
@@ -32,12 +32,18 @@ export default class Tagger extends Component {
     this.setState({tags})
   }
 
-  isTagEmpty(tag){
+  isEmpty(tag){
     return /^\s*$/.test(tag)
   }
 
   tagExists(tag){
     return this.state.tags.some(t => t === tag)
+  }
+
+  removeLastTag(){
+    const tags = [...this.state.tags]
+    tags.pop()
+    this.setState({tags})
   }
 
   render(){
@@ -48,11 +54,21 @@ export default class Tagger extends Component {
         <div className="tags">
           {
             tags.map((tag, i) => (
-              <span key={i}>{tag}</span>
+              <span key={i} className="tag">{tag}
+                <span className="close" onClick={ e => this.removeTag(tag) }>x</span>
+              </span>
             ))
           }
         </div>
-        <input type="text" onKeyPress={ e => this.addTag(e.target.value) }/>
+        <input type="text" onKeyDown={ e => {
+          if (e.keyCode === 13) {
+            this.addTag(e.target.value)
+            e.target.value = ''
+          } else if (e.keyCode === 8 && this.isEmpty(e.target.value)){
+            this.removeLastTag()
+            e.target.value = ''
+          }
+        }}/>
       </div>
     )
   }

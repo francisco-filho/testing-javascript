@@ -4,23 +4,27 @@ import {shallow, mount} from 'enzyme'
 import Tagger from '../src/components/Tagger'
 
 describe('<Tagger/>', () => {
-  it('Should Render a input', () => {
-    const wrapper = shallow(<Tagger/>)
+  let wrapper = null
 
+  beforeEach(() => {
+    wrapper = mount(<Tagger />)
+  })
+
+  afterEach(() => {
+    wrapper = null
+  })
+
+  it('Should Render a input', () => {
     expect(wrapper.find('input')).to.have.length(1)
   })
 
   it('Should add tag', () => {
-    const wrapper = mount(<Tagger/>)
-
     wrapper.instance().addTag('tags')
 
     expect(wrapper.state('tags')).to.be.eql(['tags'])
   })
 
   it('Should add more than one tag', () => {
-    const wrapper = mount(<Tagger/>)
-
     wrapper.instance().addTag('#hash')
     wrapper.instance().addTag('#react')
 
@@ -29,8 +33,6 @@ describe('<Tagger/>', () => {
 
 
   it('Should not add duplicate tags', () => {
-    const wrapper = mount(<Tagger/>)
-
     wrapper.instance().addTag('#react')
     wrapper.instance().addTag('#react')
 
@@ -38,8 +40,6 @@ describe('<Tagger/>', () => {
   })
 
   it('Should remove a tag', () => {
-    const wrapper = mount(<Tagger/>)
-
     wrapper.instance().addTag('#hash')
     wrapper.instance().addTag('#react')
 
@@ -49,12 +49,10 @@ describe('<Tagger/>', () => {
   })
 
   it('Should render tags as spans', () => {
-    const wrapper = shallow(<Tagger/>)
-
     wrapper.instance().addTag('my tag')
     wrapper.instance().addTag('done')
 
-    expect(wrapper.find('span')).to.have.length(2)
+    expect(wrapper.find('span')).to.have.length(4)
   })
 
   it('Should receive tags as props', () => {
@@ -64,22 +62,59 @@ describe('<Tagger/>', () => {
   })
 
   it('Should add tag on press enter inside the input', ()=> {
-    const wrapper = mount(<Tagger/>)
-
     const input = wrapper.find('input')
     input.node.value = 'new'
-    input.simulate('keyPress', { keyCode: 'Enter' })
+    input.simulate('keyDown', { keyCode: 13 })
+
+    input.node.value = 'wrong'
+    input.simulate('keyDown', { keyCode: 27 })
 
     expect(wrapper.state('tags')).to.be.eql(['new'])
   })
 
   it('Should not add Empty values', () => {
-    const wrapper = mount(<Tagger/>)
-
     wrapper.instance().addTag("")
     wrapper.instance().addTag(" ")
+    wrapper.instance().addTag("           ")
 
     expect(wrapper.state('tags')).to.be.eql([])
   })
 
+  it('Should remove the tag on closing it', () => {
+    const wrapper = mount(<Tagger tags={['new']}/>)
+
+    const close = wrapper.find('span.tag').find('.close')
+    close.simulate('click', { target: close})
+
+    expect(wrapper.state('tags')).to.be.eql([])
+  })
+
+  it('Should clear input after add', ()=> {
+    const input = wrapper.find('input')
+    input.node.value = 'new'
+    input.simulate('keyDown', { keyCode: 13 })
+
+    expect(wrapper.state('tags')).to.be.eql(['new'])
+    expect(input.node.value).to.be.equal('')
+  })
+
+  it('Should remove last tag with Backspace if input empty ', () => {
+    const input = wrapper.find('input')
+    input.node.value = 'new'
+    input.simulate('keyDown', { keyCode: 13 })
+    input.simulate('keyDown', { keyCode: 8 })
+
+    expect(wrapper.state('tags')).to.be.eql([])
+    expect(input.node.value).to.be.equal('')
+  })
+
+  it('Should NOT remove last tag with Backspace if input is NOT empty ', () => {
+    const input = wrapper.find('input')
+    input.node.value = 'new'
+    input.simulate('keyDown', { keyCode: 13 })
+    input.node.value = 'new2'
+    input.simulate('keyDown', { keyCode: 8 })
+
+    expect(wrapper.state('tags')).to.be.eql(['new'])
+  })
 })
