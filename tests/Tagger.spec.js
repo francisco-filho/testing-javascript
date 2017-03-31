@@ -72,6 +72,15 @@ describe('<Tagger/>', () => {
     expect(wrapper.state('tags')).to.be.eql(['new'])
   })
 
+  it('Should add tag on press tab key inside the input', () => {
+    const input = wrapper.find('input')
+    input.node.value = 'newtab'
+    input.simulate('keyDown', { keyCode: 9})
+
+    expect(wrapper.state('tags')).to.be.eql(['newtab'])
+
+  })
+
   it('Should not add Empty values', () => {
     wrapper.instance().addTag(null)
     wrapper.instance().addTag(undefined)

@@ -11,7 +11,13 @@ export const doIt = (url, data) => {
 
 class App extends Component {
   render(){
-    return <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
+    return(
+      <div>
+      <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
+      <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
+      </div>
+      )
+
   }
 }
 

@@ -62,12 +62,12 @@ export default class Tagger extends Component {
           {
             tags.map((tag, i) => (
               <span key={i} className="tag">{tag}
-                <span className="close" onClick={ e => this.removeTag(tag) }>x</span>
+                <span className="close" onClick={ e => this.removeTag(tag) }>&times;</span>
               </span>
             ))
           }
           <input type="text" onKeyDown={ e => {
-            if (e.keyCode === 13) {
+            if (e.keyCode === 13 || e.keyCode === 9) {
               this.addTag(e.target.value)
               e.target.value = ''
 
