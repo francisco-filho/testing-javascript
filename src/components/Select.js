@@ -18,10 +18,23 @@ export default class Select extends React.Component {
   constructor(props){
     super(props)
     this.state = { open: false, selected: null}
+    this.close = this.close.bind(this)
+  }
+
+  componentDidMount(){
+    window.addEventListener('click', this.close)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('click', this.closes)
   }
 
   toggleOpen(){
     this.setState({open: !this.state.open})
+  }
+
+  close(){
+    this.setState({open: false})
   }
 
   select(item){
@@ -36,7 +49,10 @@ export default class Select extends React.Component {
     const {selected} = this.state
 
     return (
-      <div className="select" onClick={ e => { this.toggleOpen() }}>
+      <div className="select" onClick={ e => {
+        e.stopPropagation()
+        this.toggleOpen()
+      }}>
         <div className="label">{ selected ? selected : 'Selecione' }
           <i className="dropdown fa fa-chevron-down"/>
         </div>
