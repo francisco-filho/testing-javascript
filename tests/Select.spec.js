@@ -4,6 +4,7 @@ import {shallow, mount} from 'enzyme'
 import td from 'testdouble'
 
 import Select from '../src/components/Select'
+import {fireClick} from '../src/mocks'
 
 describe('<Select/>', () => {
   let wrapper
@@ -82,5 +83,14 @@ describe('<Select/>', () => {
     subject.find('li').first().simulate('click')
 
     td.verify(calledOnChange('primeiro'))
+  })
+
+  it('Should close menu when click outside', () => {
+    const subject = mount(<Select items={['primeiro', 'segundo']} onChange={ v => calledOnChange(v)} />)
+    subject.find('div.select').simulate('click')
+
+    fireClick(window)
+
+    expect(subject.state('open')).to.be.false
   })
 })

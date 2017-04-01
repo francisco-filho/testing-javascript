@@ -26,7 +26,7 @@ export default class Select extends React.Component {
   }
 
   componentWillUnmount(){
-    window.removeEventListener('click', this.closes)
+    window.removeEventListener('click', this.close)
   }
 
   toggleOpen(){

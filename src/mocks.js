@@ -21,4 +21,11 @@ const fakePostRequest = (data) => {
   })
 }
 
-export { fakePost, fakePostRequest }
+
+const fireClick = (node) => {
+  const clickevent=document.createEvent("MouseEvents");
+  clickevent.initEvent("click", true, true);
+  node.dispatchEvent(clickevent)
+}
+
+export { fireClick, fakePost, fakePostRequest }
