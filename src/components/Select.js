@@ -49,7 +49,7 @@ export default class Select extends React.Component {
     const {isOpen, selected} = this.state
 
     return (
-      <div className="select" onClick={ e => {
+      <div className={`select ${isOpen ? 'active' : ''}`} onClick={ e => {
         e.stopPropagation()
         this.toggleOpen()
       }}>

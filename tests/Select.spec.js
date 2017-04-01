@@ -92,4 +92,10 @@ describe('<Select/>', () => {
 
     expect(subject.state('isOpen')).to.be.false
   })
+
+  it('Should mark .select as active', () => {
+    wrapper.find('div.select').simulate('click')
+
+    expect(wrapper.find('div.select.active')).to.have.length(1)
+  })
 })

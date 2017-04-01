@@ -1,4 +1,5 @@
 .select {
+    color: #272727;
     box-sizing: border-box;
     cursor: pointer;
     display: inline-block;
@@ -7,8 +8,15 @@
     font-size: 14px;
     border: 1px solid #ccc;
     padding: 10px;
-    min-width: 107px;
+    min-width: 110px;
     box-shadow: 0 2px 2px #ccc;
+    transition: color, background-color .2s;
+}
+
+.select.active {
+    color: #ccc;
+    background-color: #fefefe;
+    transition: color, background-color .2s;
 }
 
 .select ul, .select li {
@@ -24,6 +32,7 @@
 
 .select ul.dropdown {
     display: flex;
+    color: #272727;
     flex-direction: column;
     position: absolute;
     top: 110%;
