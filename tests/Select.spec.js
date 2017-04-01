@@ -1,6 +1,8 @@
 import React from 'react'
 import {expect} from 'chai'
 import {shallow, mount} from 'enzyme'
+import td from 'testdouble'
+
 import Select from '../src/components/Select'
 
 describe('<Select/>', () => {
@@ -70,5 +72,15 @@ describe('<Select/>', () => {
     subject.find('li').first().simulate('click')
 
     expect(subject.find('div.label').text()).to.contains('primeiro')
+  })
+
+  it('Should call a method onChange', () => {
+    const calledOnChange = td.function()
+    const subject = mount(<Select items={['primeiro', 'segundo']} onChange={ v => calledOnChange(v)} />)
+
+    subject.find('div.select').simulate('click')
+    subject.find('li').first().simulate('click')
+
+    td.verify(calledOnChange('primeiro'))
   })
 })

@@ -6,6 +6,14 @@ export default class Select extends React.Component {
       items: []
     }
   }
+
+  static get propTypes(){
+    return {
+      items: React.PropTypes.array,
+      onChange: React.PropTypes.func
+    }
+  }
+
   constructor(props){
     super(props)
     this.state = { open: false, selected: null}
@@ -16,21 +24,21 @@ export default class Select extends React.Component {
   }
 
   select(item){
-    this.setState({selected: item})
+    if (item !== this.state.selected){
+      this.setState({selected: item})
+      this.props.onChange && this.props.onChange(item)
+    }
   }
 
   render(){
-    const { items } = this.props
+    const {items} = this.props
+    const {selected} = this.state
 
     return (
-      <div className="select" onClick={ e => {
-        this.toggleOpen()
-      }}>
-        <div className="label">{
-          this.state.selected ? this.state.selected : 'Selecione...'
-        }
-          <i className="dropdown fa fa-dropdown"/>&#x25BC;</div>
-
+      <div className="select" onClick={ e => { this.toggleOpen() }}>
+        <div className="label">{ selected ? selected : 'Selecione...' }
+          <i className="dropdown fa fa-dropdown"/>&#x25BC;
+        </div>
         {
           this.state.open && <ul className="dropdown">
             {
