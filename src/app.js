@@ -2,6 +2,7 @@ import {request} from './lib'
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Tagger from './components/Tagger'
+import Select from './components/Select'
 
 export const doIt = (url, data) => {
   return request(url, data).then(data => {
@@ -13,6 +14,7 @@ class App extends Component {
   render(){
     return(
       <div>
+        <Select items={['primeiro', 'segundo']}/>
       <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
       <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
       </div>
