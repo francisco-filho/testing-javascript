@@ -28,7 +28,7 @@ describe('<Select/>', () => {
     const div = wrapper.find('div.select')
     div.simulate('click')
 
-    expect(wrapper.state('open')).to.be.true
+    expect(wrapper.state('isOpen')).to.be.true
   })
 
   it('Should toggle open state on click <off>', () => {
@@ -36,9 +36,8 @@ describe('<Select/>', () => {
     div.simulate('click')
     div.simulate('click')
 
-    expect(wrapper.state('open')).to.be.false
+    expect(wrapper.state('isOpen')).to.be.false
   })
-
 
   it('Should show a dropdown when opened', () => {
     const div = wrapper.find('div.select')
@@ -91,6 +90,6 @@ describe('<Select/>', () => {
 
     fireClick(window)
 
-    expect(subject.state('open')).to.be.false
+    expect(subject.state('isOpen')).to.be.false
   })
 })

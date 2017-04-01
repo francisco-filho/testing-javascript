@@ -17,7 +17,7 @@ export default class Select extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { open: false, selected: null}
+    this.state = { isOpen: false, selected: null}
     this.close = this.close.bind(this)
   }
 
@@ -30,11 +30,11 @@ export default class Select extends React.Component {
   }
 
   toggleOpen(){
-    this.setState({open: !this.state.open})
+    this.setState({isOpen: !this.state.isOpen})
   }
 
   close(){
-    this.setState({open: false})
+    this.setState({isOpen: false})
   }
 
   select(item){
@@ -46,7 +46,7 @@ export default class Select extends React.Component {
 
   render(){
     const {items} = this.props
-    const {selected} = this.state
+    const {isOpen, selected} = this.state
 
     return (
       <div className="select" onClick={ e => {
@@ -57,7 +57,7 @@ export default class Select extends React.Component {
           <i className="dropdown fa fa-chevron-down"/>
         </div>
         {
-          this.state.open && <ul className="dropdown">
+          isOpen && <ul className="dropdown">
             {
               items.map((t,i) => {
                 return <li key={i} onClick={ e => this.select(t) }><a>{t}</a></li>
