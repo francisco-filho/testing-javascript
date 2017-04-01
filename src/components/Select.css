@@ -1,3 +1,71 @@
 .select {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-family: Roboto, Arial;
+    font-size: 14px;
     border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.select ul, .select li {
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.select li {
+    display: inline-block;
+}
+
+.select ul.dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 110%;
+    z-index: 2;
+    background-color: #f8f8f8;
+    margin-left: -10px;
+    overflow: hidden;
+    box-shadow: 0 2px 2px #ccc;
+}
+
+.select a {
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 110px;
+    padding: 10px;
+    width: 100%;
+    height: 40px;
+    line-height: 20px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.select li:first-of-type a {
+    border-top: 1px solid #ddd;
+/*    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;*/
+}
+/*
+.select li:last-of-type a {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}*/
+
+.select a:hover, .select a.active {
+    background-color: #e8e8e8;
+}
+
+.select .label {
+    text-transform: uppercase;
+    font-size: .8rem;
+}
+.select .label .fa {
+    margin-left: 6px;
 }

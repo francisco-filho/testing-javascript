@@ -1,4 +1,5 @@
 import React from 'react'
+import './Select.css'
 
 export default class Select extends React.Component {
   static get defaultProps(){
@@ -36,14 +37,14 @@ export default class Select extends React.Component {
 
     return (
       <div className="select" onClick={ e => { this.toggleOpen() }}>
-        <div className="label">{ selected ? selected : 'Selecione...' }
-          <i className="dropdown fa fa-dropdown"/>&#x25BC;
+        <div className="label">{ selected ? selected : 'Selecione' }
+          <i className="dropdown fa fa-chevron-down"/>
         </div>
         {
           this.state.open && <ul className="dropdown">
             {
               items.map((t,i) => {
-                return <li key={i} onClick={ e => this.select(t) }>{t}</li>
+                return <li key={i} onClick={ e => this.select(t) }><a>{t}</a></li>
               })
             }
           </ul>

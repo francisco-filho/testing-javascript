@@ -15,6 +15,10 @@ class App extends Component {
     return(
       <div>
         <Select items={['primeiro', 'segundo']}/>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1> Taggers </h1>
+
       <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
       <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
       </div>
