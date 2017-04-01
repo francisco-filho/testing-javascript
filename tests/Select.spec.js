@@ -98,4 +98,22 @@ describe('<Select/>', () => {
 
     expect(wrapper.find('div.select.active')).to.have.length(1)
   })
+
+  it('Should accept items in the format [value1, value2]', () => {
+    const items = ['One', 'Two']
+    const wrapper = mount(<Select items={items}/>)
+
+    wrapper.simulate('click')
+
+    expect(wrapper.find('a').first().text()).to.contains('One')
+  })
+
+  it('Should accept items in the format {label: "one", value: 1}', () => {
+    const items = [{label: 'One', value: 1}, {label: 'Two', value: 2}]
+    const wrapper = mount(<Select items={items}/>)
+
+    wrapper.simulate('click')
+
+    expect(wrapper.find('a').first().text()).to.contains('One')
+  })
 })

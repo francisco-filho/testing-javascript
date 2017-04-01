@@ -9,13 +9,13 @@
     border: 1px solid #ccc;
     padding: 10px;
     min-width: 110px;
-    box-shadow: 0 2px 2px #ccc;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
     transition: color, background-color .2s;
 }
 
 .select.active {
     color: #ccc;
-    background-color: #fefefe;
+    background-color: #fff;
     transition: color, background-color .2s;
 }
 
@@ -37,10 +37,17 @@
     position: absolute;
     top: 110%;
     z-index: 2;
-    background-color: #f8f8f8;
+    background-color: #fff;
     margin-left: -10px;
     overflow: hidden;
-    box-shadow: 0 2px 2px #ccc;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+
+    animation-name: fadeOut;
+    animation-duration: .5s;
+}
+
+.select li {
+    flex: 1;
 }
 
 .select a {
@@ -78,4 +85,9 @@
 }
 .select .label .fa {
     margin-left: 6px;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 0}
+    60% { opacity: 1}
 }

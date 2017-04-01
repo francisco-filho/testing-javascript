@@ -60,7 +60,9 @@ export default class Select extends React.Component {
           isOpen && <ul className="dropdown">
             {
               items.map((t,i) => {
-                return <li key={i} onClick={ e => this.select(t) }><a>{t}</a></li>
+                return <li key={i} onClick={ e => this.select(t) }>
+                  <a>{typeof t === 'string' ? t : t.label}</a>
+                </li>
               })
             }
           </ul>
