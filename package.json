@@ -8,7 +8,8 @@
     "test-only": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js",
     "selenium-gecko": "java -cp . -jar  -Dwebdriver.gecko.driver=/home/francisco/dev/td/driver/geckodriver selenium-server-standalone-3.3.1.jar",
     "selenium": "java -cp . -jar  selenium-server-standalone-3.3.1.jar",
-    "cov": "node_modules/.bin/nyc --reporter=lcov --require babel-core/register npm test -- -R spec"
+    "cov": "node_modules/.bin/nyc --reporter=lcov --require babel-core/register npm test -- -R spec",
+    "test-headless": "xvfb-run java -cp . -jar selenium-server-standalone-3.3.1.jar"
   },
   "license": "MIT",
   "dependencies": {
