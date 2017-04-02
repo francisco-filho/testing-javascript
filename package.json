@@ -4,10 +4,11 @@
   "main": "index.js",
   "repository": {},
   "scripts": {
-    "test": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js tests/*.spec.js",
+    "test": "mocha --compiler babel-register --require ignore-styles --require tests/browser.js tests/*.spec.js",
     "test-only": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js",
     "selenium-gecko": "java -cp . -jar  -Dwebdriver.gecko.driver=/home/francisco/dev/td/driver/geckodriver selenium-server-standalone-3.3.1.jar",
-    "selenium": "java -cp . -jar  selenium-server-standalone-3.3.1.jar"
+    "selenium": "java -cp . -jar  selenium-server-standalone-3.3.1.jar",
+    "cov": "node_modules/.bin/nyc --reporter=lcov --require babel-core/register npm test -- -R spec"
   },
   "license": "MIT",
   "dependencies": {
@@ -23,9 +24,12 @@
     "enzyme": "^2.7.1",
     "express": "^4.15.2",
     "ignore-styles": "^5.0.1",
+    "istanbul": "^0.4.5",
     "jsdom": "^9.12.0",
     "mocha": "^3.2.0",
+    "mochawesome": "^2.0.4",
     "nightwatch": "^0.9.14",
+    "nyc": "^10.2.0",
     "promise": "^7.1.1",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
