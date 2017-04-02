@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js tests/*.spec.js",
     "test-only": "mocha -w --compiler babel-register --require ignore-styles --require tests/browser.js",
-    "selenium": "java -cp . -jar  -Dwebdriver.chrome.driver=/home/francisco/dev/td/driver/geckodriver selenium-server-standalone-3.3.1.jar"
+    "selenium-gecko": "java -cp . -jar  -Dwebdriver.gecko.driver=/home/francisco/dev/td/driver/geckodriver selenium-server-standalone-3.3.1.jar",
+    "selenium": "java -cp . -jar  selenium-server-standalone-3.3.1.jar"
   },
   "license": "MIT",
   "dependencies": {
