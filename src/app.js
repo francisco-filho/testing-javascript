@@ -19,19 +19,33 @@ export const doIt = (url, data) => {
 }
 
 class App extends Component {
+
+
   render(){
+    const newsCountArray = [0, 1, 2, 3, 4, 5]
     return(
       <div>
-        <Select items={['primeiro', 'segundo','terceiro']} onChange={ v => console.log(v) }/>
+        <Select items={['primeiro', 'segundo','terceiro','quarto', 'quinto']} onChange={ v => console.log(v) }/>
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>
 
+        <div className="f">
+          <Noticia
+                   title={"Use this exercise to solve any Product Design Challenge"}
+                   image={"https://cdn-images-1.medium.com/max/2000/1*MP8GoUaama8i1eH7t90bug.jpeg"}
+                   summary={'You can solve pretty much anything with this cheeky little exercise'}
+                   author={author} />
+          {
 
-        <Noticia
-          title={"Use this exercise to solve any Product Design Challenge"}
-          image={"https://cdn-images-1.medium.com/max/2000/1*MP8GoUaama8i1eH7t90bug.jpeg"}
-          summary={'You can solve pretty much anything with this cheeky little exercise'}
-          author={author} />
+            newsCountArray.map((n, i) => {
+              return <Noticia key={i}
+                title={"Use this exercise to solve any Product Design Challenge"}
+                image={"https://cdn-images-1.medium.com/max/2000/1*MP8GoUaama8i1eH7t90bug.jpeg"}
+                author={author} />
+            })
+          }
+
+        </div>
 
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>
