@@ -5,6 +5,9 @@ import Tagger from './components/Tagger'
 import Select from './components/Select'
 import Noticia from './components/Noticia'
 
+import DataGrid from './components/DataGrid'
+import {Column} from './components/DataGrid'
+
 const author = {
   code: 'A9832BF',
   name: 'Francisco Filho',
@@ -23,8 +26,15 @@ class App extends Component {
 
   render(){
     const newsCountArray = [0, 1, 2, 3, 4, 5]
+    const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
     return(
       <div>
+        <DataGrid records={records}>
+          <Column title="id" sort={true}/>
+          <Column title="name"/>
+        </DataGrid>
+
+        <hr/>
         <Select items={['primeiro', 'segundo','terceiro','quarto', 'quinto']} onChange={ v => console.log(v) }/>
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>
