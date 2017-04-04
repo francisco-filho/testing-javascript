@@ -29,9 +29,12 @@ class App extends Component {
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
     return(
       <div>
-        <DataGrid records={records}>
+        <DataGrid records={records}
+          /*onRowClick={} onActionClick={ (action, row) => {}}*/
+        >
           <Column title="id" sort={true}/>
           <Column title="name"/>
+          {/*<ActionColumn title="..." actions={['add', 'remove']}/>*/}
         </DataGrid>
 
         <hr/>

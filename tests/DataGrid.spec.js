@@ -97,7 +97,7 @@ describe('DataGrid', () => {
         ).to.be.equal('2')
       })
 
-      it('Should not sort by first column', () => {
+      it('Should not sort by first column if Column.props.sort=false', () => {
         grid = mount(<DataGrid records={records}>
           <Column title="id" sort={false}/>
           <Column title="name"/>
