@@ -44,6 +44,9 @@
 
     animation-name: fadeOut;
     animation-duration: .5s;
+
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 .select li {
@@ -64,7 +67,18 @@
     border-right: 1px solid #ddd;
 }
 
-.select li:first-of-type a {
+.select a>i{
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.select .label i.fa:first-of-type {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+
+  .select li:first-of-type a {
     border-top: 1px solid #ddd;
 /*    border-top-left-radius: 5px;
     border-top-right-radius: 5px;*/
@@ -80,11 +94,17 @@
 }
 
 .select .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-transform: uppercase;
     font-size: .8rem;
 }
-.select .label .fa {
+.select .label i:last-of-type .fa {
     margin-left: 6px;
+    font-weight: 100;
+    font-size: 10px;
+    color: #474747;
 }
 
 @keyframes fadeOut {

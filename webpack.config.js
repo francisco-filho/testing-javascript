@@ -7,7 +7,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'public/'),
     filename: 'app.js',
-    publicPath: 'public/'
+    publicPath: path.resolve(__dirname,'public/')
   },
   module: {
     rules: [
@@ -26,6 +26,11 @@ const config = {
   resolve: {
     modules: [ 'node_modules'],
     extensions: ['.js', '.jsx']
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "public"),
+    compress: false,
+    publicPath: "/"
   }
 }
 

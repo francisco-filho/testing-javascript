@@ -22,9 +22,8 @@ export const doIt = (url, data) => {
 }
 
 class App extends Component {
-
-
   render(){
+    console.log(1)
     const newsCountArray = [0, 1, 2, 3, 4, 5]
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
     return(
@@ -38,11 +37,16 @@ class App extends Component {
         </DataGrid>
 
         <hr/>
-        <Select items={['primeiro', 'segundo','terceiro','quarto', 'quinto']} onChange={ v => console.log(v) }/>
+        <Select items={[{label: 'One', value: 1, iconClass: 'fa fa-check'},
+          {label: 'Two', value: 2, iconClass: 'fa fa-calendar'},'terceiro','quarto', 'quinto']} onChange={ v => console.log(v) }/>
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>
+        <Select items={[
+        {label: 'One', value: 1, iconClass: 'fa fa-close'},
+        {label: 'Two', value: 2, iconClass: 'fa fa-calendar'}]}
+        />
 
-        <div className="f">
+        {/*<div className="f">
           <Noticia
                    title={"Use this exercise to solve any Product Design Challenge"}
                    image={"https://cdn-images-1.medium.com/max/2000/1*MP8GoUaama8i1eH7t90bug.jpeg"}
@@ -58,7 +62,7 @@ class App extends Component {
             })
           }
 
-        </div>
+        </div>*/}
 
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>

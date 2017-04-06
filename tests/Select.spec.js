@@ -116,4 +116,35 @@ describe('<Select/>', () => {
 
     expect(wrapper.find('a').first().text()).to.contains('One')
   })
+
+  it('Should render a icon if iconClass is passed as props', () => {
+    const items = [
+      {label: 'One', value: 1, iconClass: 'fa fa-check'},
+      {label: 'Two', value: 2, iconClass: 'fa fa-calendar'}]
+    const select = mount(<Select items={items}/>)
+
+    select.simulate('click')
+
+    expect(
+      select.find('a').first().find('.fa-check').first()
+    ).to.have.length(1)
+
+    expect(
+      select.find('a').at(1).find('i.fa-calendar')
+    ).to.have.length(1)
+  })
+
+  it('Should show icon in selected value', () => {
+    const items = [
+      {label: 'One', value: 1, iconClass: 'fa fa-check'},
+      {label: 'Two', value: 2, iconClass: 'fa fa-calendar'}]
+    const select = mount(<Select items={items}/>)
+
+    select.simulate('click')
+    select.find('a').first().simulate('click')
+
+    expect(
+      select.find('.fa-check').first()
+    ).to.have.length(1)
+  })
 })

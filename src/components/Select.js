@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import './Select.css'
 
 export default class Select extends React.Component {
@@ -22,7 +23,7 @@ export default class Select extends React.Component {
   }
 
   componentDidMount(){
-    window.addEventListener('click', this.close)
+    window.addEventListener('click', this.close, true)
   }
 
   componentWillUnmount(){
@@ -33,35 +34,40 @@ export default class Select extends React.Component {
     this.setState({isOpen: !this.state.isOpen})
   }
 
-  close(){
-    this.setState({isOpen: false})
+  close(e){
+    const area = ReactDOM.findDOMNode(this.el)
+
+    if (!area.contains(e.target))
+      this.setState({isOpen: false})
   }
 
   select(item){
     if (item !== this.state.selected){
-      this.setState({selected: item})
+      this.setState({selected: item, isOpen: false})
       this.props.onChange && this.props.onChange(item)
     }
   }
 
   render(){
-    const {items} = this.props
+    const {items, iconClass} = this.props
     const {isOpen, selected} = this.state
-
     return (
       <div className={`select ${isOpen ? 'active' : ''}`} onClick={ e => {
+        this.toggleOpen();
         e.stopPropagation()
-        this.toggleOpen()
-      }}>
-        <div className="label">{ selected ? selected : 'Selecione' }
-          <i className="dropdown fa fa-chevron-down"/>
-        </div>
+      }} ref={el => this.el = el}>
+        <SelectedValue selected={selected}/>
         {
           isOpen && <ul className="dropdown">
             {
               items.map((t,i) => {
-                return <li key={i} onClick={ e => this.select(t) }>
-                  <a>{typeof t === 'string' ? t : t.label}</a>
+                return <li key={i} onClick={ e => {
+                  this.select(t)
+                } }>
+                  <a>
+                    {typeof t === 'object' && t.iconClass && <i className={t.iconClass}/> }
+                    {typeof t === 'string' ? t : t.label}
+                  </a>
                 </li>
               })
             }
@@ -70,4 +76,19 @@ export default class Select extends React.Component {
       </div>
     )
   }
+}
+
+const SelectedValue = ({selected}) => {
+  return (
+    typeof selected === 'string' ?
+      <div className="label"><span>{selected}</span><i className="dropdown fa fa-chevron-down"/></div>
+      :
+      (selected != null) ?
+      <div className="label"><span>
+        {selected && selected.iconClass && <i className={selected.iconClass} />}
+        {selected && selected.label}</span>
+        <i className="dropdown fa fa-chevron-down"/>
+      </div> :
+        <div className="label"><span>Selecione</span><i className="dropdown fa fa-chevron-down"/></div>
+  )
 }
