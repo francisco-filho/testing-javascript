@@ -55,15 +55,15 @@ export default class Select extends React.Component {
       <div className={`select ${isOpen ? 'active' : ''}`} onClick={ e => {
         this.toggleOpen();
         e.stopPropagation()
-      }} ref={el => this.el = el}>
+      }} ref={el => this.el = el} onFocus={e => e.target.tabIndex = 0}>
         <SelectedValue selected={selected}/>
         {
           isOpen && <ul className="dropdown">
             {
               items.map((t,i) => {
-                return <li key={i} onClick={ e => {
+                return <li key={i} tabIndex={i} onClick={ e => {
                   this.select(t)
-                } }>
+                } } onFocus={e => e.target.tabIndex = 0}>
                   <a>
                     {typeof t === 'object' && t.iconClass && <i className={t.iconClass}/> }
                     {typeof t === 'string' ? t : t.label}
@@ -81,14 +81,14 @@ export default class Select extends React.Component {
 const SelectedValue = ({selected}) => {
   return (
     typeof selected === 'string' ?
-      <div className="label"><span>{selected}</span><i className="dropdown fa fa-chevron-down"/></div>
+      <div className="label"><span>{selected}</span><i className="dropdown fa fa-caret-down"/></div>
       :
       (selected != null) ?
       <div className="label"><span>
         {selected && selected.iconClass && <i className={selected.iconClass} />}
         {selected && selected.label}</span>
-        <i className="dropdown fa fa-chevron-down"/>
+        <i className="dropdown fa fa-caret-down"/>
       </div> :
-        <div className="label"><span>Selecione</span><i className="dropdown fa fa-chevron-down"/></div>
+        <div className="label"><span>Selecione</span><i className="dropdown fa fa-caret-down"/></div>
   )
 }
