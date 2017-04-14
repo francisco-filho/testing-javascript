@@ -56,7 +56,7 @@ describe('<Tagger/>', () => {
   })
 
   it('Should receive tags as props', () => {
-    const wrapper = mount(<Tagger tags={['one', 'two']}/>)
+    const wrapper = mount(<Tagger tags={'one, two'}/>)
 
     expect(wrapper.state('tags')).to.have.length(2)
   })
@@ -92,7 +92,7 @@ describe('<Tagger/>', () => {
   })
 
   it('Should remove the tag on closing it', () => {
-    const wrapper = mount(<Tagger tags={['new']}/>)
+    const wrapper = mount(<Tagger tags={'new'}/>)
 
     const close = wrapper.find('span.tag').find('.close')
     close.simulate('click', { target: close})
@@ -134,7 +134,33 @@ describe('<Tagger/>', () => {
     const wrapper = mount(<Tagger onChange={ (t) => state = t }/>)
 
     wrapper.instance().addTag('angular')
+    wrapper.instance().addTag('react')
 
-    expect(state).to.be.eql(['angular'])
+    expect(state).to.be.eql('angular,react')
+  })
+
+  it('Should update state when receive new props', () => {
+    const wrapper = mount(<Tagger tags={'angular'} />)
+
+    wrapper.setProps({tags: 'react'})
+
+    expect(wrapper.state('tags')).to.be.eql(['react'])
+  })
+
+  it('Should accept configured separator', () => {
+    const wrapper = mount(<Tagger tags={'react,angular;vue'} separator={";"} />)
+
+    expect(wrapper.state('tags')).to.be.eql(['react,angular','vue'])
+  })
+
+  it('Should return string with configured separator', () => {
+    let tags = ""
+    const wrapper = mount(<Tagger tags={'react,angular;vue'}
+                                  separator={";"}
+                                  onChange={ t => tags = t}/>)
+
+    wrapper.instance().addTag('ember')
+
+    expect(tags).to.be.equal('react,angular;vue;ember')
   })
 })

@@ -4,14 +4,15 @@ import './Tagger.css'
 export default class Tagger extends Component {
   static get propTypes(){
     return {
-      tags: React.PropTypes.array,
+      tags: React.PropTypes.string,
       onChange: React.PropTypes.func
     }
   }
 
   static get defaultProps(){
     return {
-      tags: []
+      tags: '',
+      separator: ','
     }
   }
 
@@ -20,15 +21,26 @@ export default class Tagger extends Component {
     this.state = {tags: []}
   }
 
+  componentWillReceiveProps(newProps){
+    this.setState({tags: this.tagStringToArray(newProps.tags)});
+  }
+
+  tagStringToArray(tags){
+    return tags.split(this.props.separator)
+      .filter( t => t != '')
+      .map( t => t.trim());
+  }
+
   componentDidMount(){
-    this.setState({tags: this.props.tags})
+    const { tags } = this.props
+    this.setState({tags: this.tagStringToArray(tags)})
   }
 
   addTag(tag){
     if (this.isEmpty(tag) || this.tagExists(tag)) return
 
     const newState = [...this.state.tags, tag]
-    this.props.onChange && this.props.onChange(newState)
+    this.props.onChange && this.props.onChange(newState.join(this.props.separator))
     this.setState({tags: newState})
   }
 
@@ -50,7 +62,7 @@ export default class Tagger extends Component {
     const tags = [...this.state.tags]
     tags.pop()
     this.setState({tags})
-    this.props.onChange && this.props.onChange(tags)
+    this.props.onChange && this.props.onChange(tags.join(this.props.separator))
   }
 
   render(){
