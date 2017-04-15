@@ -130,13 +130,13 @@ describe('<Tagger/>', () => {
   })
 
   it('Should call OnChange when updating the state', () => {
-    let state = null
-    const wrapper = mount(<Tagger onChange={ (t) => state = t }/>)
+    let value = null
+    const wrapper = mount(<Tagger onChange={ (t) => value = t }/>)
 
     wrapper.instance().addTag('angular')
     wrapper.instance().addTag('react')
 
-    expect(state).to.be.eql('angular,react')
+    expect(value).to.be.eql('angular,react')
   })
 
   it('Should update state when receive new props', () => {

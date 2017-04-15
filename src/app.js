@@ -6,7 +6,7 @@ import Select from './components/Select'
 import Noticia from './components/Noticia'
 
 import DataGrid from './components/DataGrid'
-import {Column} from './components/DataGrid'
+//import {Column} from './components/DataGrid'
 
 const author = {
   code: 'A9832BF',
@@ -26,15 +26,20 @@ class App extends Component {
     console.log(1)
     const newsCountArray = [0, 1, 2, 3, 4, 5]
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
+
+    const columns = [{name: 'id'}, {name: 'name'}]
+    const data  = [[1,'julia'], [2,'joao'], [3, 'fernando']]
     return(
       <div>
-        <DataGrid records={records}
-          /*onRowClick={} onActionClick={ (action, row) => {}}*/
+
+        <DataGrid columns={columns} data={data} defaultSort={'name'}/>
+        {/*<DataGrid records={records}
+
         >
           <Column title="id" sort={true}/>
           <Column title="name"/>
-          {/*<ActionColumn title="..." actions={['add', 'remove']}/>*/}
-        </DataGrid>
+          <ActionColumn title="..." actions={['add', 'remove']}/>
+        </DataGrid>*/}
 
         <hr/>
         <Select items={[{label: 'One', value: 1, iconClass: 'fa fa-check'},

@@ -1,106 +1,83 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-export default class DataGrid extends React.Component {
+export default class DataGrid extends Component {
   static get defaultProps(){
     return {
-      records: []
+      columns: [],
+      data: [],
+      defaultSort: null
     }
   }
-  constructor(props){
-    super(props)
-    this.state = { records: [], sortedBy: 0, sortOrder: 'asc'}
+
+  constructor(){
+    super()
+    this.state = {data: [], sortedBy: -1, reversed: false}
   }
 
   componentDidMount(){
-    this.setState({records: this.props.records})
+    const { defaultSort, data } = this.props
+    if (defaultSort  != null){
+      const sorted = this.sort(data, defaultSort)
+      this.setState({data: sorted.data, sortedBy: sorted.sortedBy })
+    }
+    else
+      this.setState({data})
+  }
+
+  sort(data, columnName){
+    const {sortedBy, reversed } = this.state
+    const colIndex = this.props.columns.findIndex((c)=> c.name === columnName)
+    let isReversed = colIndex === sortedBy && reversed
+
+    const sorted = data.sort((f, l) => {
+      return sortedBy !== colIndex ?
+        f[colIndex] > l[colIndex] :
+        isReversed ? f[colIndex] > l[colIndex] : f[colIndex] < l[colIndex]
+    })
+
+    if (colIndex === sortedBy)
+      isReversed = !isReversed
+
+    return {data: sorted, sortedBy: colIndex, reversed: isReversed}
+  }
+
+  sortBy(columnName){
+    const {data} = this.state
+    const sorted = this.sort(data, columnName)
+    this.setState({data: sorted.data, sortedBy: sorted.sortedBy, reversed: sorted.reversed})
   }
 
   render(){
-    const { records, sortedBy, sortOrder } = this.state
-
+    const { columns } = this.props
+    const { data } = this.state
     return (
-      <table className="data-grid">
-      <thead>
+      <table>
+        <thead>
         <tr>
-          {
-            this.props.children && this.props.children.map((col, colIdx) => {
-              return <th key={colIdx} onClick={ e => {
-                if (!col.props.sort) return;
-                const isSorted = sortedBy === colIdx
-
-                const newOrder = sortOrder === 'asc' && isSorted ?
-                  'desc' :
-                  'asc'
-
-                const result = [...records].sort((a,b) => {
-                  return (sortedBy >= 0 && isSorted) ?
-                    (newOrder == 'desc' ? a[colIdx] < b[colIdx] : a[colIdx] > b[colIdx]) :
-                    a[colIdx] > b[colIdx]
+        {
+          columns.map((th, i) => {
+            return <th key={i} onClick={ e => {
+              this.sortBy(th.name)
+              e.preventDefault()
+              e.stopPropagation()
+            }}>{ th.name }</th>
+          })
+        }</tr>
+        </thead>
+        <tbody>
+        {
+          data.map((tr,i) => {
+            return <tr key={tr.id}>
+              {
+                columns.map((td,y) => {
+                  return <td key={y}>{tr[y]}</td>
                 })
-                //console.log(newOrder, sortedBy, colIdx)
-                this.setState({records: result, sortedBy: parseInt(colIdx), sortOrder: newOrder})
-              }}
-              >{col}
-              <SortIndicator sorted={sortedBy === colIdx} direction={sortOrder}/></th>
-            })
-          }
-        </tr>
-      </thead>
-      <tbody>
-      {
-        records.map((r, ri) => {
-          return <tr className="record" key={ri}>
-            {
-              this.props.children.map((c,i) => {
-                return <td key={i}>{
-                  c.props.children ?
-                    c.props.children :
-                    React.createElement(Column, {...c.props, title: null}, r[i])
-                }</td>
-              })
-            }
-          </tr>
-        })
-      }
-      </tbody>
-    </table>)
-  }
-}
-
-class Column extends React.Component {
-  static get propTypes(){
-    return {
-      title: React.PropTypes.string,
-      type: React.PropTypes.string,
-      sort: React.PropTypes.bool
-    }
-  }
-
-  static get defaultProps(){
-    return {
-      sort: true
-    }
-  }
-
-  render(){
-    const {type, title} = this.props
-
-    const color = {
-      color: type && type === 'int' ? 'blue' : 'black',
-      fontWeight: type && type === 'int' ? 'bold' : 'normal',
-    }
-
-    return (
-      <span>{ title ? title : this.props.children }</span>
+              }
+            </tr>
+          })
+        }
+        </tbody>
+      </table>
     )
   }
 }
-
-const SortIndicator = ({sorted, direction}) => {
-  return (
-    sorted && <i
-      className={`sort-indicator fa ${direction === 'asc' ? 'fa-chevron-down' : 'fa-chevron-up'}`}/>
-  )
-}
-
-export {Column}

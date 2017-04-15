@@ -1,140 +1,91 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {shallow, mount} from 'enzyme'
 import {expect} from 'chai'
-import {mount, shallow} from "enzyme";
-
 import DataGrid from '../src/components/DataGrid'
-import { Column } from '../src/components/DataGrid'
 
-describe('DataGrid', () => {
+function columnIdContent(tr, first, last){
+  expect(tr.first().find('td').first().text()).to.be.equal(first)
+  expect(tr.last().find('td').first().text()).to.be.equal(last)
+}
 
-  describe('Grid', () => {
-    it('Should render a empty table', () => {
-      const grid = shallow(<DataGrid/>)
+function columnNameContent(tr, first, last){
+  expect(tr.first().find('td').last().text()).to.be.equal(first)
+  expect(tr.last().find('td').last().text()).to.be.equal(last)
+}
 
-      expect(grid.find('table.data-grid')).to.have.length(1)
-    })
+describe('<DataGrid/>', () => {
 
-    it('Should render a empty <thead/>', () => {
-      const grid = shallow(<DataGrid />)
+  let columns = [], data = [], grid = null
 
-      expect(grid.find('thead')).to.have.length(1)
-    })
-
-    it('Should render 2 th"s', () => {
-      const grid = mount(<DataGrid>
-        <Column title="id"/>
-        <Column title="name"/>
-      </DataGrid>)
-
-      expect(grid.find('.data-grid th')).to.have.length(2)
-    })
-
-    describe('Records', ()=> {
-      let grid,
-          records
-      beforeEach(()=> {
-        records = [[1, 'first'], [2, 'second'], [3, 'third'], [4,'fourty']]
-        grid = mount(<DataGrid records={records}>
-          <Column title="id"/>
-          <Column title="name"/>
-        </DataGrid>)
-      })
-
-      it('Should render tds when passing records as props', () => {
-        const tr = grid.find('tbody').find('tr')
-        const tds = tr.first().find('td')
-
-        expect(tr).to.have.length(4)
-        expect(tds).to.have.length(2)
-      })
-
-      it('Should render record [1, first] as the first data row', () => {
-        const firstTr = grid.find('.record').first()
-
-        expect(
-          firstTr.find('td').last().text().toLowerCase()
-        ).to.be.equal('first')
-      })
-
-      it('Should sort when click on thead', () => {
-        const th = grid.find('thead').first().find('th').last()
-        th.simulate('click')
-
-        expect(
-          grid.find('tbody').childAt(1).find('td').first().text()
-        ).to.be.equal('4')
-      })
-
-      it('Should come sorted ascending with the first column by default', () => {
-        expect(grid.state('sortedBy')).to.be.equal(0)
-        expect(grid.state('sortOrder')).to.be.equal('asc')
-      })
-
-      it('Should reverse the order of the first column', () => {
-        grid.find('thead').first().find('th').first().simulate('click')
-
-        expect(
-          grid.find('tbody').childAt(0).find('td').first().text()
-        ).to.be.equal('4')
-      })
-
-      it('Should return to initial state when clicked two times', () => {
-        grid.find('thead').first().find('th').first()
-          .simulate('click')
-          .simulate('click')
-
-        expect(
-          grid.find('tbody').childAt(0).find('td').first().text()
-        ).to.be.equal('1')
-      })
-
-      it('Should sort ascending when select other column', () => {
-        grid.find('thead').first().find('th').last().simulate('click')
-        grid.find('thead').first().find('th').first().simulate('click')
-
-        expect(
-          grid.find('tbody').childAt(1).find('td').first().text()
-        ).to.be.equal('2')
-      })
-
-      it('Should not sort by first column if Column.props.sort=false', () => {
-        grid = mount(<DataGrid records={records}>
-          <Column title="id" sort={false}/>
-          <Column title="name"/>
-        </DataGrid>)
-
-        grid.find('thead').first().find('th').first().simulate('click')
-
-        expect(
-          grid.find('tbody').childAt(0).find('td').first().text()
-        ).to.be.equal('1')
-      })
-    })
+  beforeEach(()=> {
+    columns = [{name: 'id'}, {name: 'name'}]
+    data  = [[1,'julia'], [2,'joao'], [3, 'fernando']]
+    grid = mount(<DataGrid columns={columns} data={data} defaultSort={'name'}/>)
   })
 
-  describe('Column', () => {
-    it('Should render a <span>', ()=> {
-      const col = shallow(<Column />)
+  it('Should render two th"s', () => {
+    expect(grid.find('th')).to.have.length(2)
+  })
 
-      expect(col.find('span')).to.have.length(1)
-    })
+  it('Should render two th"s with text [id, name]', () => {
+    const th = grid.find('th')
 
-    it('Should render its children <numeric>', () => {
-      const col = mount(<Column>1</Column>)
+    expect(th.first().text()).to.be.equal('id')
+    expect(th.last().text()).to.be.equal('name')
+  })
 
-      expect(col.find('span').first().text()).to.contains(1)
-    })
+  it('Should render a tbody with rows', () => {
+    const tbody = grid.find('tbody')
 
-    it('Should render its children <string>', () => {
-      const col = shallow(<Column>name</Column>)
+    expect(tbody.find('tr')).to.have.length(3)
+  })
 
-      expect(col.find('span').first().text()).to.contains('name')
-    })
+  it('Should sort data by the column "name"', () => {
+    grid = mount(<DataGrid columns={columns} data={data}/>)
 
-    it('Should render its title if has not children', ()=> {
-      const col = shallow(<Column title="my-title">1</Column>)
+    grid.instance().sortBy('name')
+    const tr = grid.find('tbody').find('tr')
 
-      expect(col.find('span').first().text()).to.contains('my-title')
-    })
+    columnIdContent(tr, '3', '1')
+  })
+
+  it('Should sort in reverse order if columns is already sorted', () => {
+    grid = mount(<DataGrid columns={columns} data={data}/>)
+    grid.instance().sortBy('name')
+    grid.instance().sortBy('name')
+
+    const tr = grid.find('tbody').find('tr')
+
+    columnIdContent(tr, '1', '3')
+  })
+
+  it('Should sort ascending when sorted by another column before', () => {
+    grid.instance().sortBy('name')
+    grid.instance().sortBy('id')
+
+    const tr = grid.find('tbody').find('tr')
+
+    columnIdContent(tr, '1', '3')
+  })
+
+  it('Should be sorted by default by "name"', ()=> {
+    const tr = grid.find('tbody').find('tr')
+
+    columnIdContent(tr, '3', '1')
+    columnNameContent(tr, 'fernando', 'julia')
+  })
+
+  it('Should sort when click in "th"', ()=> {
+    grid.find('th').first().simulate('click')
+
+    columnIdContent(grid.find('tbody').find('tr'), '1', '3')
+  })
+
+  it('Should sort in reverse order when click three times in "th"', () => {
+    grid.find('th').first().simulate('click')
+    grid.find('th').first().simulate('click')
+    grid.find('th').first().simulate('click')
+
+    columnIdContent(grid.find('tbody').find('tr'), '1', '3')
   })
 })

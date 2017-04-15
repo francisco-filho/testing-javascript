@@ -25,8 +25,8 @@ export default class Tagger extends Component {
     this.setState({tags: this.tagStringToArray(newProps.tags)});
   }
 
-  tagStringToArray(tags){
-    return tags.split(this.props.separator)
+  tagStringToArray(tagString){
+    return tagString.split(this.props.separator)
       .filter( t => t != '')
       .map( t => t.trim());
   }
