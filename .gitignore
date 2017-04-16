@@ -2,3 +2,6 @@ node_modules
 phantomjs*
 search/*
 reports/
+.nyc_output/
+mochawesome-reports/
+*.log
