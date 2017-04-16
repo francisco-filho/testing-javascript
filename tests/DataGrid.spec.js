@@ -45,7 +45,10 @@ describe('<DataGrid/>', () => {
 
     it('Should filter by name when enter a text in the inputbox', () => {
       const input = filter.find('input')
+      input.node.value = 'o'
+      input.simulate('change', input)
       input.simulate('keyDown', { keyCode: 13, target: { value: 'o'}})
+
       expect(grid.find('tbody').find('tr')).to.have.length(3)
     })
 
@@ -55,9 +58,34 @@ describe('<DataGrid/>', () => {
       expect(grid.find('tbody').find('tr')).to.have.length(5)
     })
 
+    it('Should remove the filter when press ENTER on empty input', () => {
+      const input = filter.find('input')
+      input.node.value = 'o'
+      input.simulate('change', input)
+      input.simulate('keyDown', { keyCode: 13})
+
+      input.node.value = ''
+      input.simulate('change', input)
+      input.simulate('keyDown', { keyCode: 13})
+
+      expect(grid.find('tbody').find('tr')).to.have.length(5)
+    })
+
+    it('Should remove the filter when click on "filter" button', () => {
+      const input = filter.find('input')
+      input.node.value = 'o'
+      input.simulate('change', input)
+
+      filter.find('.apply-filter').simulate('click')
+
+      expect(grid.find('tbody').find('tr')).to.have.length(3)
+    })
+
     it('Should filter by the letter "o"', () => {
       const input = filter.find('input')
-      input.simulate('keyDown', { keyCode: 13, target: { value: 'o'}})
+      input.node.value = 'o'
+      input.simulate('change', input)
+      input.simulate('keyDown', { keyCode: 13 })
 
       expect(grid.find('tbody').find('tr')).to.have.length(3)
       expect(grid.find('tbody').find('tr').find('td').first().text()).to.be.equal('1')

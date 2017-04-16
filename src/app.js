@@ -6,33 +6,38 @@ import Select from './components/Select'
 import Noticia from './components/Noticia'
 
 import DataGrid from './components/DataGrid'
-//import {Column} from './components/DataGrid'
 
-const author = {
-  code: 'A9832BF',
-  name: 'Francisco Filho',
-  avatar: 'https://cdn-images-1.medium.com/fit/c/36/36/0*MVpOkSIb-r3yuF-K.jpg',
-  date: new Date()
+class Button extends Component {
+  render(){
+    return <a onClick={ e => alert(this.props.name ) }>Save {this.props.id}</a>
+  }
 }
 
-export const doIt = (url, data) => {
-  return request(url, data).then(data => {
-    return data;
-  })
+class Check extends Component {
+  render(){
+    return <span>{ this.props.teen && <i className="fa fa-check"/> }</span>
+  }
 }
+
 
 class App extends Component {
+
+
   render(){
-    console.log(1)
+    let data = null, columns = null
     const newsCountArray = [0, 1, 2, 3, 4, 5]
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
 
-    const columns = [{name: 'id'}, {name: 'name'}]
-    const data  = [[1,'julia'], [2,'joao'], [3, 'fernando']]
+    data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true]]
+    columns = [{name: 'id'}, {name: 'name'}, { name: 'teen', component: Check}, {name: 'actions', component: Button}]
     return(
       <div>
-
-        <DataGrid columns={columns} data={data} defaultSort={'name'}/>
+        <DataGrid
+          columns={columns}
+          data={data}
+          filter={['id', 'name']}
+          paginate pageSize={20}
+          defaultSort={'name'}/>
         {/*<DataGrid records={records}
 
         >
@@ -73,8 +78,7 @@ class App extends Component {
         <h1>&nbsp;</h1>
         <h1> Taggers </h1>
 
-      <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
-      <Tagger tags={['one', 'two']} onChange={ (t) => console.log(t)}/>
+      <Tagger tags={'one, two'} onChange={ (t) => console.log(t)}/>
       </div>
       )
   }

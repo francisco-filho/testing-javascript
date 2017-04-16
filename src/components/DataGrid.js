@@ -33,7 +33,8 @@ class DataGrid extends Component {
       data: [],
       sortedBy: -1,
       reversed: false,
-      currentPage: 1
+      currentPage: 1,
+      inputFilterValue: ''
     }
   }
 
@@ -154,6 +155,14 @@ class DataGrid extends Component {
     this.initComponent()
   }
 
+  applyFilter(value){
+    console.log('applyFilter', value)
+    if (value === '')
+      this.clearFilter()
+    else
+      this.filterData(value)
+  }
+
   render(){
     const { columns, paginate, pageSize, filter } = this.props
     const { data, currentPage } = this.state
@@ -168,11 +177,16 @@ class DataGrid extends Component {
       <div className="datagrid">
         <div className="header">
           {
-            filter && <div className="filter">
+            filter &&
+            <div className="filter">
               <input type="text" onKeyDown={ e => {
-                if (e.keyCode == 13)
-                  this.filterData(e.target.value)
+                if (e.keyCode == 13) {
+                  this.applyFilter(this.state.inputFilterValue)
+                }
+              }} onChange={ e => {
+                this.setState({ inputFilterValue: e.target.value})
               }}/>
+              <span className="apply-filter" onClick={ e => this.applyFilter(this.state.inputFilterValue) }>Filter</span>
               <span className="close" onClick={e => this.clearFilter() }>x</span>
             </div>
           }
@@ -188,9 +202,7 @@ class DataGrid extends Component {
 
         }
         </div>
-        <table>
-          <thead>
-          <tr>
+        <table><thead><tr>
           {
             columns.map((th, i) => {
               return <th key={i} onClick={ e => {
@@ -217,8 +229,7 @@ class DataGrid extends Component {
               </tr>
             })
           }
-          </tbody>
-        </table>
+          </tbody></table>
       </div>
     )
   }
