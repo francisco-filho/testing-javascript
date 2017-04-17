@@ -214,7 +214,12 @@ class DataGrid extends Component {
                 this.sortBy(th.name)
                 e.preventDefault()
                 e.stopPropagation()
-              }}>{ th.label ? th.label : th.name }</th>
+              }}>{ th.label ? th.label : th.name }
+              <i className={`fa
+                ${i === this.state.sortedBy ? 'sort' : ''}
+                ${this.state.reversed ? 'desc fa-caret-up' : 'fa-caret-down'}
+                `}/>
+              </th>
             })
           }</tr>
           </thead>

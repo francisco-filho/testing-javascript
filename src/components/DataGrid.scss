@@ -1,4 +1,4 @@
-$borderColor: #aaa;
+$borderColor: #cecece;
 $darkerColor: #eee;
 $lightColor: #f8f8f8;
 $color: #222;
@@ -17,12 +17,34 @@ $padding: 5px;
     }
 
     th {
+        position: relative;
         background-image: linear-gradient($darkerColor, #e8e8e8);
+
+        i {
+            position: absolute;
+            color: #cfcfcf;
+            right: 5px;
+            top: calc(32px / 2 - 4px);
+            margin: auto;
+            cursor: pointer;
+        }
+
+        .sort {
+            color: #000;
+        }
     }
 
     td, th {
         padding: 7px 5px;
         border: 1px solid $borderColor;
+    }
+
+    tbody>tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    tbody>tr td {
+        border-color: #e0e0e0;
     }
 }
 

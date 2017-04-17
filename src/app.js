@@ -29,7 +29,7 @@ class App extends Component {
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
 
     data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true], [4, 'vany', true], [5, 'francisco', true]]
-    columns = [{name: 'id'}, {name: 'name'}, { name: 'teen', component: Check}, {name: 'actions', component: Button}]
+    columns = [{name: 'id'}, {name: 'name', label: 'My Name'}, { name: 'teen', component: Check}, {name: 'actions', component: Button}]
     return(
       <div>
         <DataGrid

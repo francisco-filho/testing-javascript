@@ -280,6 +280,19 @@ describe('<DataGrid/>', () => {
       columnIdContent(grid.find('tbody').find('tr'), '1', '3')
     })
 
+    it('Should add class .sort if th is sorted', () => {
+      grid.find('th').first().simulate('click')
+
+      expect(grid.find('th').first().find('.sort')).to.have.length(1)
+    })
+
+    it('Should add class .desc if th is sorted descendent', () => {
+      grid.find('th').first().simulate('click')
+      grid.find('th').first().simulate('click')
+
+      expect(grid.find('th').first().find('.sort.desc')).to.have.length(1)
+    })
+
 
   })
 })
