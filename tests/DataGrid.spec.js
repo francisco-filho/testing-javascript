@@ -202,7 +202,7 @@ describe('<DataGrid/>', () => {
 
   describe('Data & Sort', () => {
     beforeEach(()=> {
-      columns = [{name: 'id'}, {name: 'name'}]
+      columns = [{name: 'id'}, {name: 'name', label: 'My Name'}]
       data  = [[1,'julia'], [2,'joao'], [3, 'fernando']]
       grid = mount(<DataGrid columns={columns} data={data} defaultSort={'name'}/>)
     })
@@ -211,11 +211,18 @@ describe('<DataGrid/>', () => {
       expect(grid.find('th')).to.have.length(2)
     })
 
+    it('Should use "label" property when defined', () => {
+      const th = grid.find('th')
+
+      expect(th.first().text()).to.be.equal('id')
+      expect(th.last().text()).to.be.equal('My Name')
+    })
+
     it('Should render 2 th"s with text [id, name]', () => {
       const th = grid.find('th')
 
       expect(th.first().text()).to.be.equal('id')
-      expect(th.last().text()).to.be.equal('name')
+      expect(th.last().text()).to.be.equal('My Name')
     })
 
     it('Should render a tbody with rows', () => {
@@ -272,5 +279,7 @@ describe('<DataGrid/>', () => {
 
       columnIdContent(grid.find('tbody').find('tr'), '1', '3')
     })
+
+
   })
 })

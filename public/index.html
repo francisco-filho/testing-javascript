@@ -4,10 +4,41 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <link href="tooltip.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/b46fc71f06.js"></script>
+    <style>
+        .ok {
+            position: relative;
+        }
+
+        .ok:before {
+            content: ' X';
+            background-color: red;
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            width: 10px;
+            z-index: 2;
+        }
+
+        .ok:after {
+            content: ' X';
+            background-color: blue;
+            position: absolute;
+            left: -2px;
+            display: inline-block;
+            width: 10px;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 <h1>React Components</h1>
+<section id="css">
+    <div><span data-tooltip="i am a tooltip" className="tip">um</span></div>
+    <div><span data-tooltip="i am a right tooltip" class="tooltip-right tooltip tip">dois</span></div>
+</section>
+<div class="ok">abc</div>
 <section id="components"></section>
 <script src="app.js"></script>
 </body>

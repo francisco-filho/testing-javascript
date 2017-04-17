@@ -214,7 +214,7 @@ class DataGrid extends Component {
                 this.sortBy(th.name)
                 e.preventDefault()
                 e.stopPropagation()
-              }}>{ th.name }</th>
+              }}>{ th.label ? th.label : th.name }</th>
             })
           }</tr>
           </thead>
