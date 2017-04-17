@@ -33,7 +33,7 @@ class App extends Component {
       { name: 'teen', label: 'Teenager', component: Check, className: 'icon'},
       { name: 'actions', label: 'Actions', component: Button, className: 'action', sort: false }]
     return(
-      <div>
+      <div className="content">
         <DataGrid
           columns={columns}
           data={data}

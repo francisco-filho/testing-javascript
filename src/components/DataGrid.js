@@ -193,7 +193,7 @@ class DataGrid extends Component {
                 }} onChange={ e => {
                   this.setState({ inputFilterValue: e.target.value})
                 }}/>
-                <span className="btn apply-filter" onClick={ e => this.applyFilter(this.state.inputFilterValue) }>Filter</span>
+                <span className="btn apply-filter" onClick={ e => this.applyFilter(this.state.inputFilterValue) }>Filtrar</span>
                 <span className="btn close" onClick={e => this.clearFilter() }><i className="fa fa-close"/></span>
               </div>
             </div>
