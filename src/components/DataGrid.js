@@ -44,10 +44,10 @@ class DataGrid extends Component {
     const { data, page, defaultSort } = this.props
     if (defaultSort  != null){
       const sorted = this.sort(data, defaultSort)
-      this.setState({data: sorted.data, sortedBy: sorted.sortedBy })
+      this.setState({data: sorted.data, sortedBy: sorted.sortedBy, inputFilterValue: '' })
     }
     else
-      this.setState({data, currentPage: page ? page : this.props.currentPage})
+      this.setState({data, currentPage: page ? page : this.props.currentPage, inputFilterValue: ''})
   }
 
   componentDidMount(){
@@ -158,7 +158,6 @@ class DataGrid extends Component {
   }
 
   applyFilter(value){
-    console.log('applyFilter', value)
     if (value === '')
       this.clearFilter()
     else
