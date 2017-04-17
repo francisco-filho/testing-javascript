@@ -28,7 +28,7 @@ class App extends Component {
     const newsCountArray = [0, 1, 2, 3, 4, 5]
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
 
-    data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true]]
+    data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true], [4, 'vany', true], [5, 'francisco', true]]
     columns = [{name: 'id'}, {name: 'name'}, { name: 'teen', component: Check}, {name: 'actions', component: Button}]
     return(
       <div>
@@ -36,7 +36,7 @@ class App extends Component {
           columns={columns}
           data={data}
           filter={['id', 'name']}
-          paginate pageSize={20}
+          paginate pageSize={4}
           defaultSort={'name'}/>
         {/*<DataGrid records={records}
 

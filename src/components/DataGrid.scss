@@ -1,0 +1,100 @@
+$borderColor: #aaa;
+$darkerColor: #eee;
+$lightColor: #f8f8f8;
+$color: #222;
+
+$padding: 5px;
+
+.datagrid {
+    font-family: Arial;
+    font-size: 14px;
+    color: $padding;
+
+    table {
+        border: 1px solid $borderColor;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        background-image: linear-gradient($darkerColor, #e8e8e8);
+        /*background-color: $darkerColor;*/
+    }
+
+    td, th {
+        padding: 7px 5px;
+        border: 1px solid $borderColor;
+    }
+}
+
+.datagrid>.header {
+    display: flex;
+    border: 1px solid $borderColor;
+    border-bottom: none;
+    /*background-color: $darkerColor;*/
+    background-image: linear-gradient($darkerColor, #e8e8e8);
+
+    .filter {
+        display: flex;
+        flex: 1;
+        padding: 5px;
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding: 2px;
+            border-radius: 2px;
+            background-color: $lightColor;
+            border: 1px solid $borderColor;
+
+            input {
+                flex: 1;
+                background-color: transparent;
+                border: none;
+                outline: none;
+            }
+
+            .fa-search {
+                margin: 0 5px;
+            }
+        }
+
+        .btn {
+            color: #444;
+            font-size: 12px;
+            font-weight: 100;
+            padding: 1px 5px;
+            background-color: #f8f8f8;
+            border-radius: 2px;
+            border: 1px solid #ccc;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    }
+
+    .paginator {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+
+        .status {
+            margin: 0 10px;
+            font-size: .8rem;
+            font-weight: bold;
+        }
+        i {
+            margin: 0 3px;
+        }
+        .arrow {
+            font-size: 1.0rem;
+            cursor: pointer;
+            color: #888;
+
+            &.disabled {
+                pointer-events: none;
+                color: #ccc;
+            }
+        }
+    }
+}

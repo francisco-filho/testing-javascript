@@ -17,9 +17,9 @@ const config = {
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         include: [ path.resolve(__dirname, 'src')],
-        use: ['style-loader','css-loader']
+        use: ['style-loader','css-loader', 'sass-loader']
       }
     ]
   },
@@ -29,6 +29,7 @@ const config = {
   },
   devServer: {
     contentBase: path.join(__dirname, "public"),
+    inline: true,
     compress: false,
     publicPath: "/"
   }

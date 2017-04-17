@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+require('./DataGrid.scss')
+
 class Button extends Component {
   render(){
     return <a>Save {this.props.id}</a>
@@ -8,11 +10,11 @@ class Button extends Component {
 
 const Paginator = ({ currentPage, totalPages, onFirst, onLast, onNext, onPrevious }) => (
   <div className="paginator">
-    <span className={`first ${currentPage <= 1 && 'disabled'}`} onClick={onFirst}>&lt;&lt;</span>
-    <span className={`previous ${currentPage <= 1 && 'disabled'}`} onClick={onPrevious}>&lt;</span>
+    <span className={`arrow first ${currentPage <= 1 && 'disabled'}`} onClick={onFirst}><i className="fa fa-angle-double-left"/></span>
+    <span className={`arrow previous ${currentPage <= 1 && 'disabled'}`} onClick={onPrevious}><i className="fa fa-angle-left"/></span>
     <span className="status">{`${currentPage} de ${totalPages}`}</span>
-    <span className={`next ${currentPage >= totalPages && 'disabled'}`} onClick={onNext}>&gt;</span>
-    <span className={`last ${currentPage >= totalPages && 'disabled'}`} onClick={onLast}>&gt;&gt;</span>
+    <span className={`arrow next ${currentPage >= totalPages && 'disabled'}`} onClick={onNext}><i className="fa fa-angle-right"/></span>
+    <span className={`arrow last ${currentPage >= totalPages && 'disabled'}`} onClick={onLast}><i className="fa fa-angle-double-right"/></span>
   </div>
 )
 
@@ -179,15 +181,18 @@ class DataGrid extends Component {
           {
             filter &&
             <div className="filter">
-              <input type="text" onKeyDown={ e => {
-                if (e.keyCode == 13) {
-                  this.applyFilter(this.state.inputFilterValue)
-                }
-              }} onChange={ e => {
-                this.setState({ inputFilterValue: e.target.value})
-              }}/>
-              <span className="apply-filter" onClick={ e => this.applyFilter(this.state.inputFilterValue) }>Filter</span>
-              <span className="close" onClick={e => this.clearFilter() }>x</span>
+              <div className="input-container">
+                <span><i className="fa fa-search"/></span>
+                <input type="text" placeholder="Digite o termo a ser pesquisado e pressione ENTER" onKeyDown={ e => {
+                  if (e.keyCode == 13) {
+                    this.applyFilter(this.state.inputFilterValue)
+                  }
+                }} onChange={ e => {
+                  this.setState({ inputFilterValue: e.target.value})
+                }}/>
+                <span className="btn apply-filter" onClick={ e => this.applyFilter(this.state.inputFilterValue) }>Filter</span>
+                <span className="btn close" onClick={e => this.clearFilter() }><i className="fa fa-close"/></span>
+              </div>
             </div>
           }
         {
