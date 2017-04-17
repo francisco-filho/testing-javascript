@@ -9,6 +9,7 @@ $padding: 5px;
     font-family: Arial;
     font-size: 14px;
     color: $padding;
+    box-shadow: 0 2px 4px #aaa;
 
     table {
         border: 1px solid $borderColor;
@@ -39,12 +40,25 @@ $padding: 5px;
         border: 1px solid $borderColor;
     }
 
+    tbody>tr td {
+        border-color: #e0e0e0;
+    }
+
+    td.selected-col {
+        background-color: #f2f2f2;
+        opacity: .9;
+    }
+
     tbody>tr:nth-child(even) {
         background-color: #f8f8f8;
     }
 
-    tbody>tr td {
-        border-color: #e0e0e0;
+    .integer, .icon {
+        text-align: center;
+    }
+
+    .text {
+        text-align: left;
     }
 }
 
@@ -52,7 +66,6 @@ $padding: 5px;
     display: flex;
     border: 1px solid $borderColor;
     border-bottom: none;
-    /*background-color: $darkerColor;*/
     background-image: linear-gradient($darkerColor, #e8e8e8);
 
     .filter {
@@ -99,6 +112,12 @@ $padding: 5px;
         align-items: center;
         padding: 5px;
 
+        .records {
+            font-size: .7rem;
+            font-weight: normal;
+            color: #888;
+            margin-right: 3px;
+        }
         .status {
             margin: 0 10px;
             font-size: .8rem;

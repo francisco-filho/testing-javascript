@@ -29,7 +29,11 @@ class App extends Component {
     const records = [[1, 'First'],[2,'Second'],[3,'Third'],[4,'Forty']]
 
     data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true], [4, 'vany', true], [5, 'francisco', true]]
-    columns = [{name: 'id'}, {name: 'name', label: 'My Name'}, { name: 'teen', component: Check}, {name: 'actions', component: Button}]
+    columns = [
+      { name: 'id', className: 'integer'},
+      { name: 'name', label: 'My Name', className: 'text'},
+      { name: 'teen', component: Check, className: 'icon'},
+      { name: 'actions', component: Button}]
     return(
       <div>
         <DataGrid
@@ -45,8 +49,11 @@ class App extends Component {
           <Column title="name"/>
           <ActionColumn title="..." actions={['add', 'remove']}/>
         </DataGrid>*/}
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
 
-        <hr/>
         <Select items={[{label: 'One', value: 1, iconClass: 'fa fa-check'},
           {label: 'Two', value: 2, iconClass: 'fa fa-calendar'},'terceiro','quarto', 'quinto']} onChange={ v => console.log(v) }/>
         <h1>&nbsp;</h1>

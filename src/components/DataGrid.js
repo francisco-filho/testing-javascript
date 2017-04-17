@@ -8,11 +8,11 @@ class Button extends Component {
   }
 }
 
-const Paginator = ({ currentPage, totalPages, onFirst, onLast, onNext, onPrevious }) => (
+const Paginator = ({ currentPage, totalPages, onFirst, onLast, onNext, onPrevious, records }) => (
   <div className="paginator">
     <span className={`arrow first ${currentPage <= 1 && 'disabled'}`} onClick={onFirst}><i className="fa fa-angle-double-left"/></span>
     <span className={`arrow previous ${currentPage <= 1 && 'disabled'}`} onClick={onPrevious}><i className="fa fa-angle-left"/></span>
-    <span className="status">{`${currentPage} de ${totalPages}`}</span>
+    <span className="status">{`${currentPage} até ${totalPages}`}</span><span className="records">( { records } registros )</span>
     <span className={`arrow next ${currentPage >= totalPages && 'disabled'}`} onClick={onNext}><i className="fa fa-angle-right"/></span>
     <span className={`arrow last ${currentPage >= totalPages && 'disabled'}`} onClick={onLast}><i className="fa fa-angle-double-right"/></span>
   </div>
@@ -198,6 +198,7 @@ class DataGrid extends Component {
         {
           paginate && data.length > pageSize &&
             <Paginator
+              records={data.length}
               currentPage={currentPage}
               totalPages={this.getPages().length}
               onFirst={ e => this.firstPage() }
@@ -217,7 +218,7 @@ class DataGrid extends Component {
               }}>{ th.label ? th.label : th.name }
               <i className={`fa
                 ${i === this.state.sortedBy ? 'sort' : ''}
-                ${this.state.reversed ? 'desc fa-caret-up' : 'fa-caret-down'}
+                ${this.state.reversed && i === this.state.sortedBy ? 'desc fa-caret-up' : 'fa-caret-down'}
                 `}/>
               </th>
             })
@@ -229,7 +230,12 @@ class DataGrid extends Component {
               return <tr key={i}>
                 {
                   columns.map((td,y) => {
-                    return <td key={y}>{
+                    return <td key={y}
+                      className={`
+                      ${y === this.state.sortedBy ? 'selected-col' : ''}
+                      ${ td.className ? td.className : ''}
+                      `}
+                    >{
                       td.component ?
                         React.createElement(td.component, this.zip(columnSchema, tr)) :
                         tr[y]
