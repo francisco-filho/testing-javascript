@@ -10,6 +10,7 @@ $padding: 5px;
     font-size: 14px;
     color: $padding;
     box-shadow: 0 2px 4px #aaa;
+    box-sizing: border-box;
 
     table {
         border: 1px solid $borderColor;
@@ -20,12 +21,14 @@ $padding: 5px;
     th {
         position: relative;
         background-image: linear-gradient($darkerColor, #e8e8e8);
+        min-height: 42px;
+        height: 42px;
 
         i {
             position: absolute;
             color: #cfcfcf;
-            right: 5px;
-            top: calc(32px / 2 - 4px);
+            right: 10px;
+            top: calc(32px / 2);
             margin: auto;
             cursor: pointer;
         }
@@ -53,12 +56,18 @@ $padding: 5px;
         background-color: #f8f8f8;
     }
 
-    .integer, .icon {
+    .integer, .icon, .action {
         text-align: center;
     }
 
     .text {
         text-align: left;
+    }
+
+    .action {
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 
@@ -87,6 +96,7 @@ $padding: 5px;
                 background-color: transparent;
                 border: none;
                 outline: none;
+                padding: 4px;
             }
 
             .fa-search {

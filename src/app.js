@@ -21,8 +21,6 @@ class Check extends Component {
 
 
 class App extends Component {
-
-
   render(){
     let data = null, columns = null
     const newsCountArray = [0, 1, 2, 3, 4, 5]
@@ -30,10 +28,10 @@ class App extends Component {
 
     data = [[1, 'julia', false], [2, 'joao', false], [3, 'fernando', true], [4, 'vany', true], [5, 'francisco', true]]
     columns = [
-      { name: 'id', className: 'integer'},
+      { name: 'id', className: 'integer', label: 'Id'},
       { name: 'name', label: 'My Name', className: 'text'},
-      { name: 'teen', component: Check, className: 'icon'},
-      { name: 'actions', component: Button}]
+      { name: 'teen', label: 'Teenager', component: Check, className: 'icon'},
+      { name: 'actions', label: 'Actions', component: Button, className: 'action', sort: false }]
     return(
       <div>
         <DataGrid

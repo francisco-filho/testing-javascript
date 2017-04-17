@@ -4,7 +4,7 @@ require('./DataGrid.scss')
 
 class Button extends Component {
   render(){
-    return <a>Save {this.props.id}</a>
+    return <a className="action-btn">Save {this.props.id}</a>
   }
 }
 
@@ -12,7 +12,7 @@ const Paginator = ({ currentPage, totalPages, onFirst, onLast, onNext, onPreviou
   <div className="paginator">
     <span className={`arrow first ${currentPage <= 1 && 'disabled'}`} onClick={onFirst}><i className="fa fa-angle-double-left"/></span>
     <span className={`arrow previous ${currentPage <= 1 && 'disabled'}`} onClick={onPrevious}><i className="fa fa-angle-left"/></span>
-    <span className="status">{`${currentPage} até ${totalPages}`}</span><span className="records">( { records } registros )</span>
+    <span className="status">{`${currentPage} de ${totalPages}`}</span><span className="records">( { records } registros )</span>
     <span className={`arrow next ${currentPage >= totalPages && 'disabled'}`} onClick={onNext}><i className="fa fa-angle-right"/></span>
     <span className={`arrow last ${currentPage >= totalPages && 'disabled'}`} onClick={onLast}><i className="fa fa-angle-double-right"/></span>
   </div>
@@ -165,6 +165,10 @@ class DataGrid extends Component {
       this.filterData(value)
   }
 
+  isColumnSorted(col){
+    return typeof col['sort'] === 'undefined' || col['sort'] === true
+  }
+
   render(){
     const { columns, paginate, pageSize, filter } = this.props
     const { data, currentPage } = this.state
@@ -216,10 +220,10 @@ class DataGrid extends Component {
                 e.preventDefault()
                 e.stopPropagation()
               }}>{ th.label ? th.label : th.name }
-              <i className={`fa
+                  { this.isColumnSorted(th) && <i className={`fa
                 ${i === this.state.sortedBy ? 'sort' : ''}
                 ${this.state.reversed && i === this.state.sortedBy ? 'desc fa-caret-up' : 'fa-caret-down'}
-                `}/>
+                `}/> }
               </th>
             })
           }</tr>

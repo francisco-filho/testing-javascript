@@ -207,6 +207,12 @@ describe('<DataGrid/>', () => {
       grid = mount(<DataGrid columns={columns} data={data} defaultSort={'name'}/>)
     })
 
+    afterEach(()=> {
+      columns = null
+      data = null
+      grid = null
+    })
+
     it('Should render 2 th"s', () => {
       expect(grid.find('th')).to.have.length(2)
     })
@@ -293,6 +299,12 @@ describe('<DataGrid/>', () => {
       expect(grid.find('th').first().find('.sort.desc')).to.have.length(1)
     })
 
+    it('Should not sort with column with "noSort" attribute', () => {
+      const columns2 = [{name: 'id', sort: false}, {name: 'name', label: 'My Name'}]
+      const grid2 = mount(<DataGrid columns={columns2} data={data} defaultSort={'name'}/>)
 
+      expect(grid2.find('th').first().find('.fa-caret-down')).to.have.length(0)
+      expect(grid2.find('th').first().find('.fa-caret-up')).to.have.length(0)
+    })
   })
 })
